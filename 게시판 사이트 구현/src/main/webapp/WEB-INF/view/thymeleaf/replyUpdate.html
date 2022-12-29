@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" th:action="@{'/reply/'+ ${reply.postId} +'/'+ ${reply.replyId} + '/update'}">
+    내용 : <textarea name="content" rows="1" cols="10"></textarea><br/>
+    <input type="hidden" name="postId" th:value="${reply.postId}"/>
+    <br/>
+    <input type="submit"/>
+</form>
+</body>
+</html>

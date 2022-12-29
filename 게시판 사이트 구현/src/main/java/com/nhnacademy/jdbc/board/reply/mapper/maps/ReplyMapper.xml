@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nhnacademy.jdbc.board.reply.mapper.ReplyMapper">
+
+    <select id="selectReplys" resultType="com.nhnacademy.jdbc.board.reply.domain.Reply">
+        select *
+        from Replys
+        where postId = #{postId}
+    </select>
+    <insert id="insertReply">
+        insert into Replys(postId,writer, content)
+        values (#{postId},#{writer},#{content})
+    </insert>
+
+    <update id="updateReplyById">
+        update Replys set writer=#{writer},content=#{content}
+        where replyId = #{replyId}
+          and postId = #{postId}
+    </update>
+
+    <delete id="deleteReplyById">
+        delete from Replys
+        where replyId = #{replyId}
+          and postId = #{postId}
+    </delete>
+</mapper>
+

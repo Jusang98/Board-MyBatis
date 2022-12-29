@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글 등록</title>
+</head>
+<body>
+<form method="post" th:action="@{/register}">
+    제목:<input type="text" name="title"/><br/>
+    내용:<textarea name="content" rows="10" cols="80"></textarea><br/>
+    <br/>
+    <input type="submit"/>
+</form>
+<input type="button" value="취소" onclick="history.back(-1)">
+</body>
+</html>

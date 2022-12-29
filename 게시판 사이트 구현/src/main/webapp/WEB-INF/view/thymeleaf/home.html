@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자(수정자)</th>
+        <th>작성시간</th>
+        <th>댓글수</th>
+    </tr>
+    <span>
+    <tr th:each="post : ${postList}">
+        <td th:text="${post.id}"></td>
+        <td><a href="postView.html" th:href="@{'/post/' + ${post.id}+ '?user=='+${user}}" th:text="${post.title}"/></td>
+        <td th:text="${post.userId}"></td>
+        <td th:text="${#dates.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${post.replyCount}"></td>
+
+    </tr>
+    </span>
+    <span th:if="${param.guest == yes}">
+    <button onclick="location.href='/register'">글등록</button >
+    </span>
+</table>
+<div id="pagination">
+    <span th:each="pageNum : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+        <a th:href="@{'/home?page='+${pageNum}}" th:text="${pageNum}"></a>
+    </span>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 조회</title>
+</head>
+<body>
+<span>
+            게시물번호: <span th:text="${post.id}"/><br/>
+            제목: <span th:text="${post.title}"/><br/>
+            내용: <span th:text="${post.content}"/><br/>
+            작성자(수정자): <span th:text="${post.userId}"/><br/>
+            작성일시: <span th:text="${#dates.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}"/><br/>
+    <span th:if="${user}==${post.userId} or ${user} == 'admin' ">
+    <td><a th:href="@{'/post/' + ${post.id} + '/modify'}">수정</a></td><br/>
+        <td><a th:href="@{'/post/' + ${post.id} + '/delete'}">삭제</a></td><br/>
+    </span>
+            <a href="/home">
+                <span>게시판목록</span>
+            </a><br/>
+</span>
+<span th:if="${user}!=null">
+<form method="reply" th:action="@{/reply/register}">
+    <textarea name="content" rows="1" cols="10" placeholder="댓글달기"></textarea><br/>
+    <input type="hidden" name="postId" th:value="${post.id}"/>
+    <input type="submit" value="등록"/>
+</form>
+</span>
+    <tr th:each="reply : ${replyList}">
+        <span th:text="${reply.writer}"/>
+        <span th:text="${#dates.format(reply.replyTime,'yyyy-MM-dd HH:mm:ss')}"/><br/>
+        <span th:text="${reply.content}"/><br/>
+        <input type="hidden" name="replyId" th:value="${reply.replyId}"/>
+        <input type="hidden" name="postId" th:value="${reply.postId}"/>
+        <span th:if="${user}==${reply.writer} or ${user} == 'admin' ">
+        <a th:href="@{'/reply/'+ ${reply.postId} +'/'+ ${reply.replyId} + '/update'}">수정</a>
+        <a th:href="@{'/reply/'+ ${reply.postId} +'/'+ ${reply.replyId} + '/delete'}">삭제</a><br/>
+        </span>
+</tr>
+
+</span>
+
+</body>
+</html>
